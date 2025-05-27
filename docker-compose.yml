@@ -5,5 +5,5 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - my-rsa-keys:/root/.ssh/id_rsa:ro
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
     restart: unless-stopped

@@ -8,13 +8,14 @@ RUN apk add --no-cache \
     bash \
     curl
 
-# Create working directory
 WORKDIR /site
 
-# Copy the start script
+# Copy entrypoint script
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
+# Expose Nginx default port
 EXPOSE 80
 
+# Begins process by running chmod = (~start.sh)
 CMD ["/start.sh"]
