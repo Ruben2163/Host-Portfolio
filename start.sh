@@ -1,26 +1,24 @@
 set -e
 
-echo "[*] Starting SSH agent..."
-eval $(ssh-agent -s)
+echo "[*] Setting up SSH..."
+mkdir -p /root/.ssh
 chmod 600 /root/.ssh/id_rsa
+eval $(ssh-agent -s)
 ssh-add /root/.ssh/id_rsa
 
-# Ensure GitHub host key is known
-mkdir -p /root/.ssh
+echo "[*] Adding GitHub to known_hosts..."
 ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-echo "[*] Cloning repo..."
-git clone --depth=1 --branch main git@github.com:Ruben2163/portfolio.git hugo-site
+echo "[*] Cloning Hugo repo..."
+git clone --depth=1 --branch main git@github.com:ruben2163/portfolio.git hugo-site
 
 cd hugo-site
-
-echo "[*] Building Hugo site..."
+echo "[*] Building site..."
 hugo
 
-echo "[*] Moving public files to Nginx root..."
+echo "[*] Serving via Nginx..."
 rm -rf /var/lib/nginx/html
 mkdir -p /var/lib/nginx/html
 cp -r public/* /var/lib/nginx/html/
 
-echo "[*] Starting Nginx..."
 nginx -g "daemon off;"
