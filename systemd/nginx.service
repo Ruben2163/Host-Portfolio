@@ -1,0 +1,14 @@
+[Unit]
+Description=Nginx Service for Hugo Static Site
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/nginx -g 'daemon off;'
+ExecReload=/bin/kill -s HUP $MAINPID
+User=www-data
+Group=www-data
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

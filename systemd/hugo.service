@@ -1,0 +1,13 @@
+[Unit]
+Description=Hugo Static Site Server
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/path/to/raspberry-pi-hugo/hugo-site
+ExecStart=/usr/local/bin/hugo server --bind 0.0.0.0 --baseURL http://your-domain-or-ip
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
