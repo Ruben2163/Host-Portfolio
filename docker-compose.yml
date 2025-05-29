@@ -1,9 +1,1 @@
-version: '3'
-services:
-  hugo-site:
-    build: .
-    ports:
-      - "8080:80"
-    volumes:
-      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
-    restart: unless-stopped
+
